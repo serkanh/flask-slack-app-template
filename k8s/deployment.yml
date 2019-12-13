@@ -32,20 +32,16 @@ spec:
             cpu: '{{ k8s_cpu_requests }}'
             memory: '{{ k8s_memory_requests }}'
         env:
-        - name: VAR_NAME
-          value: '{{ var_value }}'
+        - name: SLACK_USER_TOKEN
+          value: '{{ slack_user_token }}'
         ports:
         - containerPort: 80
           protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /health?token="{{ flask-slack-app-template_healthcheck_token }}"
-            port: 80
-            httpHeaders:
-            - name: X-Healthcheck-Light
-              value: 'true'
-          initialDelaySeconds: 20
-          periodSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
       imagePullSecrets:
       - name: quay.io
       restartPolicy: Always
