@@ -1,0 +1,53 @@
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  labels:
+    app: flask-slack-app-template
+  name: flask-slack-app-template
+  namespace: default
+spec:
+  replicas: {{ k8s_replicas }}
+  selector:
+    matchLabels:
+      app: flask-slack-app-template
+  revisionHistoryLimit: 5
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: flask-slack-app-template
+    spec:
+      volumes: null
+      containers:
+      - name: flask-slack-app-template
+        image: quay.io/hearst/flask-slack-app-template:{{ tag }}
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: '{{ k8s_cpu_requests }}'
+            memory: '{{ k8s_memory_requests }}'
+        env:
+        - name: VAR_NAME
+          value: '{{ var_value }}'
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /health?token="{{ flask-slack-app-template_healthcheck_token }}"
+            port: 80
+            httpHeaders:
+            - name: X-Healthcheck-Light
+              value: 'true'
+          initialDelaySeconds: 20
+          periodSeconds: 5
+      imagePullSecrets:
+      - name: quay.io
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 15
+      dnsPolicy: ClusterFirst
