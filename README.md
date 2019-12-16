@@ -23,5 +23,11 @@
   - run `python app.py`
   - update [slash command](https://api.slack.com/apps/AQE4AUN9K/slash-commands) for the app to point at new ngrok tunnel.
 
+## Running locally on Docker:
+  - download and install ngrok
+  - run `docker-compose up -d`
+  - run `docker ps` and get the port that Docker is mapping the container to, i.e. `0.0.0.0:32769->80/tcp`
+  - run `ngrok http 32769` (the port from the above step)
+
 ## Testing:
   - run `bin/test`

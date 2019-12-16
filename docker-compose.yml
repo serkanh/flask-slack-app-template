@@ -1,0 +1,18 @@
+version: '2'
+services:
+  range:
+    container_name: flask-slack-app-template
+    build:
+      context: .
+    image: quay.io/hearst/flask-slack-app-template
+    ports:
+      - 80
+    volumes:
+      - ${PWD}:/app
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONWRITEBYTECODE=true
+      - SLACK_USER_TOKEN=faketoken
+      - VIRTUAL_HOST=flask-slack-app-template.docker
