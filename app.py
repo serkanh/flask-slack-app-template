@@ -24,5 +24,5 @@ def endpoint_1():
 
 
 if __name__ == '__main__':
-    debug = True if os.getenv('ENV') not in 'prod' else False
+    debug = True if 'prod' not in str(os.getenv('ENV')) else False
     app.run(host='0.0.0.0', port=80, debug=debug)
