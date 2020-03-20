@@ -2,6 +2,7 @@
 - create a new repo using in [Github](https://github.com/new), selecting Repository template. Use Hearst-Hatchery/flask-slack-app-template.
 - Run Cog new app command. `!new-app -t kube {name}`, this will add the proper teams, branch protection, etc. As this template just inlcudes the files in the repo.
 
+- Since there are a few files already you'll need to change both the [k8s/deployment.yml](k8s/deployment.yml) and [k8s/service.yml](k8s/service.yml), replacing all instances of `flask-slack-app-template` with your app name. As new-app, skips pre-exisiting files.
 
 
 ---
