@@ -32,8 +32,12 @@ spec:
             cpu: '{{ k8s_cpu_requests }}'
             memory: '{{ k8s_memory_requests }}'
         env:
-        - name: SLACK_USER_TOKEN
-          value: '{{ slack_user_token }}'
+        - name: SLACKBOT_REPLYBOT_TOKEN
+          value: '{{ slackbot_replybot_token }}'
+        - name: SLACK_SIGNING_SECRET
+          value: '{{ slack_signing_secret }}'
+        - name: LOG_LEVEL
+          value: '{{ log_level }}'
         ports:
         - containerPort: 80
           protocol: TCP

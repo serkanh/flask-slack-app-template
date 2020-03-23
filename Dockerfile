@@ -18,4 +18,5 @@ ADD . /app/
 RUN pip install -r requirements.txt
 
 EXPOSE 80
-CMD gunicorn -b ${GUNICORN_HOST}:${GUNICORN_PORT} --workers ${GUNICORN_WORKERS} app:app --reload
+# will be changed to name of app when using this template
+CMD gunicorn -b ${GUNICORN_HOST}:${GUNICORN_PORT} --workers ${GUNICORN_WORKERS} app.app:app --reload

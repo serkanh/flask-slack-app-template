@@ -25,6 +25,8 @@ install:
 
 script:
   - /bin/true
+  # when you have tests in /tests uncomment this
+  # - docker run -t quay.io/hearst/${APP_NAME}:${TRAVIS_COMMIT:0:7} bin/test
 
 after_success: >-
   if [ "$TRAVIS_PULL_REQUEST" != "false" ];then
@@ -46,9 +48,6 @@ deploy:
       wget https://hearst-hatchery.github.io/atlas/v2/deploy_semver.sh;
       chmod +x deploy_semver.sh;
       ./deploy_semver.sh;
-      wget https://hearst-hatchery.github.io/atlas/v2/auto_deploy.sh;
-      chmod +x auto_deploy.sh;
-      ./auto_deploy.sh "${APP_NAME}" ${TRAVIS_TAG} kubefeature;
     on:
       tags: true
       condition: $TRAVIS_TAG =~ [0-9]+\.[0-9]+\.[0-9]+
